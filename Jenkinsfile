@@ -5,7 +5,7 @@ pipeline {
         stage ('Build of Image') {
             steps {
                 script {
-                    dockerapp = docker.build("register.debugsystem.com.br/debugsystem/app-votacao:v1", '-f ./Dockerfile ./')
+                    dockerapp = docker.build("register.debugsystem.com.br/debugsystem/app-votacao:v2", '-f ./Dockerfile ./')
 
                 }
             }
@@ -16,7 +16,7 @@ pipeline {
                 script {
                     docker.withRegistry('https://register.debugsystem.com.br/debugsystem', 'harbor') {
                         dockerapp.push('latest')
-                        dockerapp.push('v1')
+                        dockerapp.push('v2')
                     }
                 }
             }
