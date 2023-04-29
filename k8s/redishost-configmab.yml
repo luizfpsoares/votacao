@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  REDISHOST: 10.99.166.215
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: redishost

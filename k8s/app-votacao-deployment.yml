@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-votacao
+  name: app-votacao
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-votacao
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: app-votacao
+    spec:
+      containers:
+      - image: register.debugsystem.com.br/debugsystem/app-votacao:v1
+        name: app-votavao
+        env:
+        - name: REDISHOST
+          valueFrom:
+            configMapKeyRef:
+              name: redishost
+              key: REDISHOST
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: "1"
+            memory: 256Mi
+          requests:
+            cpu: "0.5"
+            memory: 128Mi
+        livenessProbe:
+          exec:
+            command:
+              - curl
+              - -f
+              - http://localhost
+          initialDelaySeconds: 10
+          periodSeconds: 30
+          successThreshold: 1
+          failureThreshold: 2
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 30
+          successThreshold: 1
+          failureThreshold: 2
+          timeoutSeconds: 5
+        startupProbe:
+          tcpSocket:
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 30
+          successThreshold: 1
+          failureThreshold: 2
+          timeoutSeconds: 5
+      imagePullSecrets:
+      - name: regcred

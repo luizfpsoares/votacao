@@ -39,4 +39,4 @@ def zera():
     return render_template("home.html", msg=(msg))
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0")
+    app.run(host="0.0.0.0", port="80")

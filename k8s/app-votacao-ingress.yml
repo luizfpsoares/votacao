@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-app-votacao
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: votacao.debugsystem.com.br
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: svc-app-votacao
+            port:
+              number: 80
