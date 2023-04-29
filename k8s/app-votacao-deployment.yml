@@ -20,7 +20,7 @@ spec:
         app: app-votacao
     spec:
       containers:
-      - image: register.debugsystem.com.br/debugsystem/app-votacao:v1
+      - image: register.debugsystem.com.br/debugsystem/app-votacao:v2
         name: app-votavao
         env:
         - name: REDISHOST
