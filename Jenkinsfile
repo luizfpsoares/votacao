@@ -14,7 +14,7 @@ pipeline {
         stage ('Push of image') {
             steps {
                 script {
-                    docker.withRegistry('https://gegister.debugsystem.com.br/debugsystem', 'harbor')
+                    docker.withRegistry('https://register.debugsystem.com.br/debugsystem', 'harbor')
                         dockerapp.push('latest')
                         dockerapp.push('v1')
                 }
